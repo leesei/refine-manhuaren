@@ -20,7 +20,6 @@
   "engine": {
     "node": ">= 5.0.0"
   },
-  "global": true,
   "homepage": "https://github.com/leesei/refine-manhuaren#readme",
   "keywords": [
     "comics",
@@ -29,6 +28,7 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "preferGlobal": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leesei/refine-manhuaren.git"
