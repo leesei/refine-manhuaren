@@ -8,8 +8,8 @@ const Path = require('path');
 const ProgressBar = require('progress');
 const Shell = require('shelljs');
 
-exports.command = 'extract <folder> <target> [options]'
-exports.describe = 'Extract comics'
+exports.command = 'extract <folder> <target> [options]';
+exports.describe = 'Extract comics';
 
 exports.builder = {
   z: {
@@ -24,7 +24,7 @@ exports.builder = {
     describe: 'ignore image names in chapter info',
     type: 'bool'
   }
-}
+};
 
 exports.handler = function (argv) {
   scanComics(argv.folder, argv.json)
@@ -41,11 +41,11 @@ exports.handler = function (argv) {
           if (Shell.test('-d', target)) {
             console.log(Chalk.yellow(`[${target}] exists, removing`));
             Shell.rm('-rf', target);
-          };
+          }
 
           // create target folder
           Shell.mkdir('-p', target);
-          const images = Shell.find(volume.volumeDir).filter(function(file) { return file.match(/\.mhr$/); });
+          const images = Shell.find(volume.volumeDir).filter(function (file) { return file.match(/\.mhr$/); });
           if (images.length !== volume.mangaSectionImages.length) {
             console.log(Chalk.yellow(`image files (${images.length}) less then expected (${volume.mangaSectionImages.length})`));
           }
@@ -83,7 +83,7 @@ exports.handler = function (argv) {
             if (Shell.test('-d', targetZip)) {
               console.log(Chalk.yellow(`[${targetZip}] exists, removing`));
               Shell.rm('-rf', targetZip);
-            };
+            }
 
             // TODO: we don't have progress with zipFolder()
             // check zipFolder()'s source and use Archiver ourself
