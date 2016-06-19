@@ -3,7 +3,7 @@
   "description": "Refine Manhuaren is an extractor to extract Manhuaren comics.",
   "version": "1.0.0",
   "author": "leesei <leesei@gmail.com>",
-  "bin": "./cli/cli.js",
+  "bin": "./cli.js",
   "bugs": {
     "url": "https://github.com/leesei/refine-manhuaren/issues"
   },
