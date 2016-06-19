@@ -17,6 +17,12 @@ exports.builder = {
     default: false,
     describe: 'output zip of each extracted volumes',
     type: 'bool'
+  },
+  I: {
+    alias: 'ignoreImageNames',
+    default: false,
+    describe: 'ignore image names in chapter info',
+    type: 'bool'
   }
 }
 
@@ -60,8 +66,14 @@ exports.handler = function (argv) {
               continue;
             }
 
-            // the file name is the index of the name array
-            Shell.cp(image, Path.join(target, volume.mangaSectionImages[match[1]]));
+            // the original file name is the index of the image array
+            if (argv.ignoreImageNames) {
+              // use original file name plus extension of it in image array
+              Shell.cp(image, Path.join(target, match[1] + Path.extname(volume.mangaSectionImages[match[1]])));
+            } else {
+              // use file names in image array
+              Shell.cp(image, Path.join(target, volume.mangaSectionImages[match[1]]));
+            }
             bar.tick();
           }
 
