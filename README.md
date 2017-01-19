@@ -66,3 +66,11 @@ refine-manhuaren extract ~/manhuaren/download/16464 -z
 # use `-I` to ignore it and rename files using the original index
 refine-manhuaren extract ~/manhuaren/download/1210 -I
 ```
+
+---
+
+TODO:
+we don't have progress with `zipFolder()`
+check `zipFolder()`'s source and use [Archiver](http://archiverjs.com/docs/) ourself
+Or check if [zip-local](https://github.com/Mostafa-Samir/zip-local) supports progress
+

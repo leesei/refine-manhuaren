@@ -21,7 +21,13 @@ exports.builder = {
   I: {
     alias: 'ignoreImageNames',
     default: false,
-    describe: 'ignore image names in chapter info',
+    describe: 'ignore image names in chapter info (use index as file name)',
+    type: 'bool'
+  },
+  t: {
+    alias: 'title',
+    default: false,
+    describe: 'adds title to folder (useful if section name conflicts)',
     type: 'bool'
   }
 };
@@ -35,7 +41,10 @@ exports.handler = function (argv) {
 
         console.log(`[${Chalk.yellow.bgBlue.bold(manga)}]  (${Chalk.blue(volumes[0].mangaId)})`);
         for (let volume of volumes) {
-          const target = Path.resolve(argv.target, manga, volume.mangaSectionName);
+          const folder = (argv.title && volume.mangaSectionTitle)
+            ? volume.mangaSectionName + ' ' + volume.mangaSectionTitle
+            : volume.mangaSectionName;
+          const target = Path.resolve(argv.target, manga, folder);
 
           // ensure target folder not exist
           if (Shell.test('-d', target)) {
@@ -80,14 +89,11 @@ exports.handler = function (argv) {
           if (argv.zip) {
             const targetZip = `${target}.zip`;
             // ensure target zip not exist
-            if (Shell.test('-d', targetZip)) {
+            if (Shell.test('-e', targetZip)) {
               console.log(Chalk.yellow(`[${targetZip}] exists, removing`));
               Shell.rm('-rf', targetZip);
             }
 
-            // TODO: we don't have progress with zipFolder()
-            // check zipFolder()'s source and use Archiver ourself
-            // http://archiverjs.com/docs/
             zipFolder(target, targetZip, function (err) {
               if (err) {
                 return console.log(Chalk.red(`error archiving [${target}]: ${err}`));
