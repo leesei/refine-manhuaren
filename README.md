@@ -3,11 +3,9 @@
 [![NPM Version][npm-image]][npm-url]
 <!-- [![Linux Build][travis-image]][travis-url] -->
 <!-- [![Windows Build][appveyor-image]][appveyor-url] -->
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)  
-[![bitHound Overall Score][bithound-image]][bithound-url]
-[![bitHound Dependencies][bithound-dep-image]][bithound-dep-url]
-[![bitHound Dev Dependencies][bithound-devdep-image]][bithound-dep-url]
-[![bitHound Code][bithound-code-image]][bithound-url]
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+![David Dependencies][david-dep-image]
+![David Dev Dependencies][david-devdep-image]
 
 [npm-image]: https://img.shields.io/npm/v/refine-manhuaren.svg
 [npm-url]: https://npmjs.org/package/refine-manhuaren
@@ -15,12 +13,8 @@
 [travis-url]: https://travis-ci.org/leesei/refine-manhuaren
 [appveyor-image]: https://img.shields.io/appveyor/ci/leesei/refine-manhuaren/master.svg?label=windows
 [appveyor-url]: https://ci.appveyor.com/project/leesei/refine-manhuaren
-[bithound-image]: https://www.bithound.io/github/leesei/refine-manhuaren/badges/score.svg
-[bithound-url]: https://www.bithound.io/github/leesei/refine-manhuaren
-[bithound-dep-image]: https://www.bithound.io/github/leesei/refine-manhuaren/badges/dependencies.svg
-[bithound-devdep-image]: https://www.bithound.io/github/leesei/refine-manhuaren/badges/devDependencies.svg
-[bithound-dep-url]: https://www.bithound.io/github/leesei/refine-manhuaren/master/dependencies/npm
-[bithound-code-image]: https://www.bithound.io/github/leesei/refine-manhuaren/badges/code.svg
+[david-dep-image]: https://img.shields.io/david/leesei/refine-manhuaren
+[david-devdep-image]: https://img.shields.io/david/dev/leesei/refine-manhuaren
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
@@ -69,8 +63,8 @@ refine-manhuaren extract ~/manhuaren/download/1210 -I
 
 ---
 
-TODO:
-we don't have progress with `zipFolder()`
-check `zipFolder()`'s source and use [Archiver](http://archiverjs.com/docs/) ourself
+TODO:  
+we don't have progress with `zipFolder()`  
+check `zipFolder()`'s source and use [Archiver](http://archiverjs.com/docs/) ourself  
 Or check if [zip-local](https://github.com/Mostafa-Samir/zip-local) supports progress
 
