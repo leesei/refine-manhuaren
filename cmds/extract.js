@@ -1,7 +1,8 @@
 'use strict';
 const scanComics = require('..').scanComics;
-const groupBy = require('lodash.groupby');
 const zipFolder = require('zip-folder');
+
+const groupBy = require('../utils/groupBy');
 
 const Chalk = require('chalk');
 const Path = require('path');

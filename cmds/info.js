@@ -1,7 +1,8 @@
 'use strict';
 const scanComics = require('..').scanComics;
-const groupBy = require('lodash.groupby');
 const Chalk = require('chalk');
+
+const groupBy = require('../utils/groupBy');
 
 exports.command = 'info <folder> [options]';
 exports.describe = 'List comics in folder';
