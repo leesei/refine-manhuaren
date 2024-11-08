@@ -1,3 +1,3 @@
 module.exports = {
-  scanComics: require('./lib/scancomics')
+  scanComics: require("./lib/scancomics"),
 };
