@@ -1,12 +1,14 @@
-const groupBy = require("lodash").groupBy;
-const Chalk = require("chalk");
+import chalk from "chalk";
+import lodash from "lodash";
 
-const scanComics = require("../lib/scancomics.js");
+import scanComics from "../lib/scancomics.js";
 
-exports.command = "info <folder> [options]";
-exports.describe = "List comics in folder";
+const { groupBy } = lodash;
 
-exports.builder = {
+export const command = "info <folder> [options]";
+export const describe = "List comics in folder";
+
+export const builder = {
   j: {
     alias: "json",
     default: false,
@@ -21,8 +23,8 @@ function SectionToString(section) {
     ? `: ${section.mangaSectionTitle}`
     : "";
   return [
-    `[${Chalk.cyan(section.mangaSectionName)}${title}]  (${Chalk.blue(
-      section.mangaSectionId
+    `[${chalk.cyan(section.mangaSectionName)}${title}]  (${chalk.blue(
+      section.mangaSectionId,
     )})`,
     `- ${section.volumeDir}`,
     `- ${section.mangaSectionImages.length} images`,
@@ -31,7 +33,7 @@ function SectionToString(section) {
   ];
 }
 
-exports.handler = function (argv) {
+export const handler = function (argv) {
   scanComics(argv.folder, argv.json).then((comics) => {
     const byManga = groupBy(comics, "mangaName");
 
@@ -49,18 +51,25 @@ exports.handler = function (argv) {
 
     for (let manga in byManga) {
       console.log(
-        `[${Chalk.yellow.bgBlue.bold(manga)}]  (${Chalk.blue(
-          byManga[manga][0].mangaId
-        )})`
+        `[${chalk.yellow.bgBlue.bold(manga)}]  (${chalk.blue(
+          byManga[manga][0].mangaId,
+        )})`,
       );
       for (let section of byManga[manga]) {
         console.log(
           SectionToString(section)
             .map((line) => "  " + line)
-            .join("\n")
+            .join("\n"),
         );
       }
       console.log();
     }
   });
+};
+
+export default {
+  command,
+  describe,
+  builder,
+  handler,
 };

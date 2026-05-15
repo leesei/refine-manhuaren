@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.  
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0] - 2026-05-16
+
+- rewrite from CommonJS to ESM
+- update deps
+
 ## [1.4.0] - 2024-11-08
 
 - update deps

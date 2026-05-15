@@ -1,3 +1,1 @@
-module.exports = {
-  scanComics: require("./lib/scancomics"),
-};
+export { default as scanComics } from "./lib/scancomics.js";

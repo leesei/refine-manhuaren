@@ -61,6 +61,12 @@ refine-manhuaren extract ~/manhuaren/download/16464 -z
 refine-manhuaren extract ~/manhuaren/download/1210 -I
 ```
 
+Use `-z` or this command to create zip files
+
+```sh
+fd -i -t d | tr -d "/" | xargs -d"\n" -I@ -P(nproc)  zip -r @.zip @
+```
+
 ---
 
 TODO:

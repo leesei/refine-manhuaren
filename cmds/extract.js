@@ -1,16 +1,18 @@
-const Chalk = require("chalk");
-const groupBy = require("lodash").groupBy;
-const Path = require("path");
-const ProgressBar = require("progress");
-const Shell = require("shelljs");
+import chalk from "chalk";
+import lodash from "lodash";
+import Path from "node:path";
+import ProgressBar from "progress";
+import Shell from "shelljs";
 
-const scanComics = require("../lib/scancomics.js");
-const zipFolder = require("../lib/zip-folder.js");
+import scanComics from "../lib/scancomics.js";
+import zipFolder from "../lib/zip-folder.js";
 
-exports.command = "extract <folder> <target> [options]";
-exports.describe = "Extract comics";
+const { groupBy } = lodash;
 
-exports.builder = {
+export const command = "extract <folder> <target> [options]";
+export const describe = "Extract comics";
+
+export const builder = {
   z: {
     alias: "zip",
     default: false,
@@ -40,7 +42,7 @@ function ProcessSection(section, argv) {
 
   // ensure target folder not exist
   if (Shell.test("-d", targetPath)) {
-    console.log(Chalk.yellow(`[${targetPath}] exists, removing`));
+    console.log(chalk.yellow(`[${targetPath}] exists, removing`));
     Shell.rm("-rf", targetPath);
   }
 
@@ -51,9 +53,9 @@ function ProcessSection(section, argv) {
   });
   if (images.length !== section.mangaSectionImages.length) {
     console.log(
-      Chalk.yellow(
-        `image files (${images.length}) less then expected (${section.mangaSectionImages.length})`
-      )
+      chalk.yellow(
+        `image files (${images.length}) less then expected (${section.mangaSectionImages.length})`,
+      ),
     );
   }
 
@@ -65,13 +67,13 @@ function ProcessSection(section, argv) {
       incomplete: " ",
       width: 50,
       total: images.length,
-    }
+    },
   );
 
   for (let image of images) {
     const match = Path.basename(image).match(/\.(\d+)\.mhr/);
     if (!match || match[1] >= section.mangaSectionImages.length) {
-      console.log(Chalk.yellow(`image[${image}] name mismatch, skipping`));
+      console.log(chalk.yellow(`image[${image}] name mismatch, skipping`));
       bar.tick();
       continue;
     }
@@ -83,14 +85,14 @@ function ProcessSection(section, argv) {
         image,
         Path.join(
           targetPath,
-          match[1] + Path.extname(section.mangaSectionImages[match[1]])
-        )
+          match[1] + Path.extname(section.mangaSectionImages[match[1]]),
+        ),
       );
     } else {
       // use file names in image array
       Shell.cp(
         image,
-        Path.join(targetPath, section.mangaSectionImages[match[1]])
+        Path.join(targetPath, section.mangaSectionImages[match[1]]),
       );
     }
     bar.tick();
@@ -100,14 +102,14 @@ function ProcessSection(section, argv) {
     const targetZip = `${targetPath}.zip`;
     // ensure target zip not exist
     if (Shell.test("-e", targetZip)) {
-      console.log(Chalk.yellow(`[${targetZip}] exists, removing`));
+      console.log(chalk.yellow(`[${targetZip}] exists, removing`));
       Shell.rm("-rf", targetZip);
     }
 
     zipFolder(targetPath, targetZip, function (err) {
       if (err) {
         return console.log(
-          Chalk.red(`error archiving [${targetPath}]: ${err}`)
+          chalk.red(`error archiving [${targetPath}]: ${err}`),
         );
       }
       Shell.rm("-rf", targetPath);
@@ -115,20 +117,27 @@ function ProcessSection(section, argv) {
   }
 }
 
-exports.handler = function (argv) {
+export const handler = function (argv) {
   scanComics(argv.folder, argv.json).then((comics) => {
     const byManga = groupBy(comics, "mangaName");
     for (let manga in byManga) {
       const sections = byManga[manga];
 
       console.log(
-        `[${Chalk.yellow.bgBlue.bold(manga)}]  (${Chalk.blue(
-          sections[0].mangaId
-        )})`
+        `[${chalk.yellow.bgBlue.bold(manga)}]  (${chalk.blue(
+          sections[0].mangaId,
+        )})`,
       );
       for (let section of sections) {
         ProcessSection(section, argv);
       }
     }
   });
+};
+
+export default {
+  command,
+  describe,
+  builder,
+  handler,
 };
